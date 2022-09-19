@@ -1,0 +1,24 @@
+[
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 1,
+        "fields": {
+            "watch_status" : "WATCHED",
+            "film_title" : "Fall",
+            "film_rating": "3",
+            "film_release" : "August 16th, 2022",
+            "film_review" : "The tension from this film really affects me. Some parts are impossible so this film isn't relatable"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 1,
+        "fields": {
+            "watch_status" : "WATCHED",
+            "film_title" : "Rebecca",
+            "film_rating": "3",
+            "film_release" : "October 16th, 2020",
+            "film_review" : "The tension from this film really affects me. Some parts are impossible so this film isn't relatable"
+        }
+    }
+]
