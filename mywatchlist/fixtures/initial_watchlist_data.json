@@ -7,18 +7,106 @@
             "film_title" : "Fall",
             "film_rating": "3",
             "film_release" : "August 16th, 2022",
-            "film_review" : "The tension from this film really affects me. Some parts are impossible so this film isn't relatable"
+            "film_review" : "The tension from this film really affects me. Some parts are impossible to be happened in this universe so this film isn't relatable"
         }
     },
     {
         "model": "mywatchlist.WatchlistItem",
-        "pk" : 1,
+        "pk" : 2,
         "fields": {
             "watch_status" : "WATCHED",
             "film_title" : "Rebecca",
             "film_rating": "3",
             "film_release" : "October 16th, 2020",
-            "film_review" : "The tension from this film really affects me. Some parts are impossible so this film isn't relatable"
+            "film_review" : "The plot is running slowly and makes me feel bored. Giving a not-so-mindblowing plot twist"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 3,
+        "fields": {
+            "watch_status" : "NOT YET",
+            "film_title" : "Gangubai Kathiawadi",
+            "film_rating": "0",
+            "film_release" : "February 25th, 2022",
+            "film_review" : "I haven't watched it :(. Please remind me !"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 4,
+        "fields": {
+            "watch_status" : "NOT YET",
+            "film_title" : "Night in Paradise",
+            "film_rating": "0",
+            "film_release" : "September 3rd, 2020",
+            "film_review" : "I haven't watched it :(. Please remind me !"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 5,
+        "fields": {
+            "watch_status" : "WATCHED",
+            "film_title" : "Incantation",
+            "film_rating": "4",
+            "film_release" : "March 18th, 2022",
+            "film_review" : "My blood is rushing through my body since the film is thrilling me!"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 6,
+        "fields": {
+            "watch_status" : "NOT YET",
+            "film_title" : "Emergency Declaration",
+            "film_rating": "0",
+            "film_release" : "August 16th, 2022",
+            "film_review" : "I haven't watched it :(. Please remind me !"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 7,
+        "fields": {
+            "watch_status" : "NOT YET",
+            "film_title" : "The Age of Adaline",
+            "film_rating": "0",
+            "film_release" : "April 24th, 2015",
+            "film_review" : "I haven't watched it :(. Please remind me !"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 8,
+        "fields": {
+            "watch_status" : "WATCHED",
+            "film_title" : "Silenced",
+            "film_rating": "4",
+            "film_release" : "September 22nd, 2011",
+            "film_review" : "This film makes me so sad. I can't tell about anything except how could someone be so evil?"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 9,
+        "fields": {
+            "watch_status" : "WATCHED",
+            "film_title" : "The Prestige",
+            "film_rating": "5",
+            "film_release" : "November 8th, 2006",
+            "film_review" : "I think this movie is the greatest and most mindblowing movie I've ever watched!"
+        }
+    },
+    {
+        "model": "mywatchlist.WatchlistItem",
+        "pk" : 7,
+        "fields": {
+            "watch_status" : "NOT YET",
+            "film_title" : "The Invisible Guest",
+            "film_rating": "0",
+            "film_release" : "January 6th, 2017",
+            "film_review" : "I haven't watched it :(. Please remind me !"
         }
     }
 ]
