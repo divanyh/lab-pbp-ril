@@ -100,7 +100,7 @@
     },
     {
         "model": "mywatchlist.WatchlistItem",
-        "pk" : 7,
+        "pk" : 10,
         "fields": {
             "watch_status" : "NOT YET",
             "film_title" : "The Invisible Guest",
