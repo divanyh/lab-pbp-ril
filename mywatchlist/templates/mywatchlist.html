@@ -21,11 +21,11 @@
     {% comment %} Add the data below this line {% endcomment %}
     {% for WatchlistItem in list_film %}
       <tr>
-        <th>{{movies.film_title}}</th>
-        <th>{{movies.watch_status}}</th>
-        <th>{{movies.film_release}}</th>
-        <th>{{movies.film_rating}}</th>
-        <th>{{movies.film_review}}</th>
+        <th>{{WatchlistItem.film_title}}</th>
+        <th>{{WatchlistItem.watch_status}}</th>
+        <th>{{WatchlistItem.film_release}}</th>
+        <th>{{WatchlistItem.film_rating}}</th>
+        <th>{{WatchlistItem.film_review}}</th>
       </tr>
     {% endfor %}
   </table>
