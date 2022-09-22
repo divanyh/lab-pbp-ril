@@ -7,6 +7,7 @@ Link web page : [Klik di sini](https://labdivany.herokuapp.com/mywatchlist/)<br>
 - HTML (HyperText Markup Language) merupakan Markup Language untuk dokumen dan didesain untuk ditampilkan di *web browser*.
 ![Table Perbandingan JSON, XML, dan HTML](/assets/image/TablePerbandinganXMLJSONHTML.jpg)
 <br>
+
 Referensi:
 1. [A Deep Look at JSON vs. XML, Part 1: The History of Each Standard](https://www.toptal.com/web/json-vs-xml-part-1)
 2. [A Deep Look At JSON vs. XML, Part 2: The Strengths and Weaknesses of Both](https://www.toptal.com/web/json-vs-xml-part-2)
