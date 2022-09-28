@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<title>To-Do-List</title>
+{% endblock meta %}
+
  {% block content %}
 
   <h1>{{Task.user}}'s To-Do-List</h1>
@@ -7,7 +11,7 @@
   <table>
     <tr>
       <th>Tanggal Dibuat</th>
-      <th>Judul</th>
+      <th>Nama Tugas</th>
       <th>Deskripsi</th>
     </tr>
     {% comment %} Add the data below this line {% endcomment %}
@@ -19,5 +23,8 @@
       </tr>
     {% endfor %}
   </table>
+
+  <button><a href="{% url 'todolist:add_task' %}">Tambah Tugas Baru</a></button>
+  <button><a href="{% url 'todolist:logout_user' %}">Logout</a></button>
 
  {% endblock content %}
