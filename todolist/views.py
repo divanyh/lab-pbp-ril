@@ -11,7 +11,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from todolist.models import Task
-from todolist.forms import CreateTaskForm
 
 
 # Create your views here.
