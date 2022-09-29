@@ -6,7 +6,7 @@
 
  {% block content %}
 
-  <h1>{{Task.user}}'s To-Do-List</h1>
+  <h1>{{user}}'s To-Do-List</h1>
 
   <table>
     <tr>
@@ -15,9 +15,9 @@
       <th>Deskripsi</th>
     </tr>
     {% comment %} Add the data below this line {% endcomment %}
-    {% for Task in data_todolist %}
+    {% for Task in data %}
       <tr>
-        <th>{{Task.date}}</th>
+        <th>{{Task.date_created}}</th>
         <th>{{Task.title}}</th>
         <th>{{Task.description}}</th>
       </tr>

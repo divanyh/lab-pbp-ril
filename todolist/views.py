@@ -1,4 +1,7 @@
+from ast import main
 from binascii import rledecode_hqx
+from http import cookies
+from urllib import request
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -14,10 +17,15 @@ from todolist.forms import CreateTaskForm
 # Create your views here.
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    # if(request.method == 'POST'){
-
-    # }
-    return render(request, 'todolist.html')
+    # data_todolist = Task.objects.filter(user__isequal = )
+    # data_todolist = Task.objects.get(pk = user_id)
+    data_todolist = Task.objects.filter(user = request.user)
+    context = {
+        'data': data_todolist,
+        'username': request.COOKIES['username']
+    }
+    # print(request.COOKIES['username'])
+    return render(request, 'todolist.html', context)
 
 def login_user(request):
     if request.method == 'POST':
@@ -28,6 +36,7 @@ def login_user(request):
             login(request, user)
             response = HttpResponseRedirect(reverse('todolist:show_todolist'))
             response.set_cookie('last_login', str(datetime.datetime.now()))
+            response.set_cookie('username', username)
             return response
         else:
             messages.info(rledecode_hqx, 'Username atau Password salah!')
@@ -53,13 +62,23 @@ def logout_user(request):
     return response
 
 def add_task(request):
-    form = CreateTaskForm(request.POST or None)
-    response = {'form' : form} 
-    if (form.is_valid() and request.method == 'POST'):
-        form.save()
-        response = HttpResponseRedirect('/todolist')
-        response.set_cookie('date created', str(datetime.datetime.now()))
-        return response
-    else:
-        return render(request, 'create-task.html', response)
+    if(request.POST):
+        newTask = Task(user = request.user, title = request.POST.get('title'), description = request.POST.get('description'), date_created = datetime.date.today())
+        newTask.save()
+        # form = CreateTaskForm(request.POST)
+        # # response = {'form' : form} 
+        # if (form.is_valid()):
+        #     form.save()
+        # form_data = form.cleaned_data
+        # # response = HttpResponseRedirect(reverse('todolist:show_todolist'))
+        # # response.set_cookie('date_created', str(datetime.datetime.now()))
+        # new_task = Task()
+        # new_task.date = str(datetime.datetime.now())
+        # new_task.title = form_data.get('title')
+        # new_task.description = form_data.get('description')
+        # # task = Task(date = str(datetime.datetime.now()), )
+        return redirect('todolist:show_todolist')
+    # else:
+    #     form = CreateTaskForm()
+    return render(request, 'create-task.html')
 

@@ -1,5 +1,7 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 class Task(models.Model):
@@ -7,6 +9,6 @@ class Task(models.Model):
         User,
         on_delete = models.CASCADE,
     )
-    date = models.DateField
+    date_created = models.DateField(default = date.today)
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(null=True)
