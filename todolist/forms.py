@@ -1,5 +1,4 @@
 from sqlite3 import Date
-from tkinter import Label
 from django import forms
 from todolist.models import Task
 
