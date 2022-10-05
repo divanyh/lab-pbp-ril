@@ -1,5 +1,17 @@
-## Tugas 3 PBP : To-Do-List
+# To-Do-List : [Tugas 4](#tugas-4-pbp) dan [Tugas 5](#tugas-5-pbp) PBP
 Link web page : [Klik di sini](https://labdivany.herokuapp.com/todolist/)<br>
+
+## Tugas 5 PBP
+
+### Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
+
+### Jelaskan tag HTML5 yang kamu ketahui.
+
+### Jelaskan tipe-tipe CSS selector yang kamu ketahui.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+
+## Tugas 4 PBP
 
 ### Apa kegunaan {% csrf_token %} pada elemen <form>? 
 {% csrf_token %} berfungsi sebagai tempat 'diletakannya' csrf token.<br>

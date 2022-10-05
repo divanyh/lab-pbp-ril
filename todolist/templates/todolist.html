@@ -4,11 +4,47 @@
 <title>To-Do-List</title>
 {% endblock meta %}
 
- {% block content %}
+{% block content %}
 
-  <h1>{{user}}'s To-Do-List</h1>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, inital-scale=1">
+  <title>Wishlist</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
 
-  <table>
+<nav class="navbar bg-warning">
+  <div class="container-fluid">
+    <div class="d-inline">
+      <button class="btn btn-dark"><a href="{% url 'todolist:add_task' %}" 
+        style="text-decoration: none; color: white;">Tambah Tugas Baru</a></button>
+      <button class="btn btn-danger"><a href="{% url 'todolist:logout_user' %}"
+        style="text-decoration: none; color: white;">Logout</a></button>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid" style="height: 5rem;">
+  <h1 class="text-center" style="padding-top: 1rem;">{{user}}'s To-Do-List</h1>
+</div>
+
+<div class="container-fluid p-3">
+  <div class="row row-cols-2 row-cols-md-4">
+    {% for Task in data %}
+    <div class="col">
+      <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 18rem; height: 13rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{Task.title}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{Task.date_created}}</h6>
+          <p class="card-text tex-truncate">{{Task.description}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<!-- <table>
     <tr>
       <th>Tanggal Dibuat</th>
       <th>Nama Tugas</th>
@@ -22,9 +58,9 @@
         <th>{{Task.description}}</th>
       </tr>
     {% endfor %}
-  </table>
+  </table> -->
 
-  <button><a href="{% url 'todolist:add_task' %}">Tambah Tugas Baru</a></button>
-  <button><a href="{% url 'todolist:logout_user' %}">Logout</a></button>
+<!-- <button class="btn btn-outline-warning position-relative"><a href="{% url 'todolist:add_task' %}">Tambah Tugas Baru</a></button>
+<button class="btn btn-outline-danger"><a href="{% url 'todolist:logout_user' %}">Logout</a></button> -->
 
- {% endblock content %}
+{% endblock content %}

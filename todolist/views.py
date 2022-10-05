@@ -11,6 +11,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import datetime
 from todolist.models import Task
+from .forms import CreateTaskForm
 
 
 # Create your views here.
@@ -60,24 +61,56 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+# def add_task(request):
+#     if(request.POST):
+#         newTask = Task(user = request.user, title = request.POST.get('title'), description = request.POST.get('description'), date_created = datetime.date.today())
+#         newTask.save()
+#         # form = CreateTaskForm(request.POST)
+#         # # response = {'form' : form} 
+#         # if (form.is_valid()):
+#         #     form.save()
+#         # form_data = form.cleaned_data
+#         # # response = HttpResponseRedirect(reverse('todolist:show_todolist'))
+#         # # response.set_cookie('date_created', str(datetime.datetime.now()))
+#         # new_task = Task()
+#         # new_task.date = str(datetime.datetime.now())
+#         # new_task.title = form_data.get('title')
+#         # new_task.description = form_data.get('description')
+#         # # task = Task(date = str(datetime.datetime.now()), )
+#         return redirect('todolist:show_todolist')
+#     # else:
+#     #     form = CreateTaskForm()
+#     return render(request, 'create-task.html')
+
 def add_task(request):
+    submitted = False
     if(request.POST):
-        newTask = Task(user = request.user, title = request.POST.get('title'), description = request.POST.get('description'), date_created = datetime.date.today())
-        newTask.save()
-        # form = CreateTaskForm(request.POST)
+        form = CreateTaskForm(request.POST)
         # # response = {'form' : form} 
-        # if (form.is_valid()):
-        #     form.save()
+        if (form.is_valid()):
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
         # form_data = form.cleaned_data
-        # # response = HttpResponseRedirect(reverse('todolist:show_todolist'))
+            response = redirect('todolist:show_todolist')
+            return response
+        else:
+            form = CreateTaskForm
+            if 'submitted' in request.GET:
+                submitted = True
         # # response.set_cookie('date_created', str(datetime.datetime.now()))
         # new_task = Task()
         # new_task.date = str(datetime.datetime.now())
         # new_task.title = form_data.get('title')
         # new_task.description = form_data.get('description')
         # # task = Task(date = str(datetime.datetime.now()), )
-        return redirect('todolist:show_todolist')
+        # return redirect('todolist:show_todolist')
     # else:
     #     form = CreateTaskForm()
     return render(request, 'create-task.html')
+
+# def delete_task(request, task_id):
+#     task = Task.objects.get(pk = task_id)
+#     task.delete()
+#     return redirect('show_todolist')
 
