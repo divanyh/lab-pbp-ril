@@ -4,12 +4,44 @@ Link web page : [Klik di sini](https://labdivany.herokuapp.com/todolist/)<br>
 ## Tugas 5 PBP
 
 ### Apa perbedaan dari Inline, Internal, dan External CSS? Apa saja kelebihan dan kekurangan dari masing-masing style?
+- Inline CSS:
+*Styling* dilakukan langsung di tiap tag html yang ingin di-*styling*. Kelebihannya adalah developer dapat melihat dan mengubah styling tiap-tiap komponen secara langsung pada komponennya, tidak perlu mengingat class/id dan mencarinya di css. Kekurangannya adalah sangat mungkin terjadi redundansi pada code. Misal, ada tipe komponen yang sama tetapi berada di section yang berbeda. Selain itu, tentu tidak dapat diplikasikan antar file html. <br>
+- Internal CSS:
+*Styling* dilakukan secara kolektif di head html. Kelebihannya adalah code lebih rapi dan meminimumkan redundansi code pada komponen-komponennya. Kekurangannya adalah redundansi tetap mungkin terjadi di antar file html. <br>
+- Eksternal CSS:
+*Styling* dilakukan di suatu file terpisah (.css). Kelebihannya adalah file html lebih clean dan dapat digunakan antar file html. Kekurangannya adalah setiap pengubahan untuk suatu komponen perlu mengingat class/id dan mencarinya di file tersebut. <br>
 
 ### Jelaskan tag HTML5 yang kamu ketahui.
+- a: untuk memberikan hyperlink pada komponen
+- head: section untuk menyimpan informasi-informasi terkait dokumen termasuk title dan styling
+- body: section yang merupakan badan/isi dari dokumen, biasanya di section ini lah komponen-komponen yang akan ditampilkan terletak.
+- div: tag yang mendefinisikan suatu bagian/*section* baru
+- h*: (* = 1-6) tag untuk membuat heading, semakin besar angka semakin kecil
+- html: tag yang mendefinisikan page html itu sendiri
+- img: tag untuk menambahkan gambar
+- input: tag untuk menambahkan komponen yang berfungsi untuk menerima input dari pengguna
+- label: tag untuk memberikan keterangan pada komponen dengan tag input
+- meta: tag untuk menyediakan metadata yang terstruktur terkait dokumen
+- nav: tag yang mendefinisikan *section* yang berfungsi sebagai navigasi.
+- p: tag untuk menampung tulisan (paragraph)
+- li: tag untuk mendefinisikan list
+- ul: tag untuk mendefinisikan unordered list
+- strong: tag untuk mengubah tulisan menjadi bold
+- i: tag untuk mengubah tulisan menjadi italic
+- u: tag untuk mengubah tulisan menjadi underlined
+- title: tag untuk menambahkan title pada dokumen<br>
 
 ### Jelaskan tipe-tipe CSS selector yang kamu ketahui.
+- '*': CSS selector yang berguna untuk memilih semua elemen
+- '': CSS selector yang berguna untuk memilih elemen dengan tag tersebut
+- '.': CSS selector yang berguna untuk memilih elemen dengan class tertentu
+- '#': CSS selector yang berguna untuk memilih elemen berdasarkan idnya 
+Semakin ke bawah semakin spesifik. Jika dilakukan styling berbeda pada sebuah elemen yang memiliki id dan containernya dengan class tertentu untuk sebuah elemen maka yang akan diterapkan kepada elemen tersebut adalah yg dengan CSS selector '#' terhadap idnya.<br>
 
 ### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas.
+1. Membuat section head pada setiap page html dan menambahkan link bootstrap untuk menjadi stylesheet
+2. Memberikan class dan style pada setiap komponen dan section secara inline
+3. Membuat semua elemen menjadi responsif
 
 ## Tugas 4 PBP
 
