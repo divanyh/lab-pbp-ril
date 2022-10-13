@@ -1,8 +1,4 @@
-from ast import main
 from binascii import rledecode_hqx
-from http import cookies
-from turtle import title
-from urllib import request
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
