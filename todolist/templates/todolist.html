@@ -5,38 +5,44 @@
 {% endblock meta %}
 
 {% block content %}
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, inital-scale=1">
   <title>Wishlist</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>
-      .card-body:hover{
-        background-color: #ffd92f;
-        opacity: 50%;
-      }
+    .card:hover {
+      background-color: #ffd92f;
+      opacity: 50%;
+    }
   </style>
 </head>
 
 <nav class="navbar bg-warning">
   <div class="container-fluid">
     <div class="d-inline">
-      <button class="btn btn-dark"><a href="{% url 'todolist:add_task' %}" 
-        style="text-decoration: none; color: white;">Tambah Tugas Baru</a></button>
+      <input class="btn btn-dark" onclick="location.href='/todolist/create-task'" type="button"
+        value="Tambah Tugas Baru"></input>
       <button class="btn btn-danger"><a href="{% url 'todolist:logout_user' %}"
-        style="text-decoration: none; color: white;">Logout</a></button>
+          style="text-decoration: none; color: white;">Logout</a></button>
     </div>
   </div>
 </nav>
 
-<div class="container-fluid" style="height: 5rem;">
+<div class="container-fluid" style="height: 8rem;">
   <h1 class="text-center" style="padding-top: 1rem;">{{user}}'s To-Do-List</h1>
+  <div class="position-relative" style="margin-top: 3rem;">
+    <button class="btn btn-dark position-absolute bottom-0 start-50 translate-middle-x" id="quickAddBtn"
+      data-bs-toggle="modal" data-bs-target="#quickAddModal">QuickAdd</button>
+  </div>
 </div>
 
-<div class="container-fluid p-3">
-  <div class="row row-cols-2 row-cols-md-4">
-    {% for Task in data %}
+<div class="container-fluid p-3" id="cardContainer">
+  <div class="row row-cols-2 row-cols-md-4" id="rowcolTask">
+    <!-- {% for Task in data %}
     <div class="col">
       <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 18rem; height: 13rem;">
         <div class="card-body">
@@ -46,26 +52,141 @@
         </div>
       </div>
     </div>
-    {% endfor %}
+    {% endfor %} -->
   </div>
 </div>
-<!-- <table>
-    <tr>
-      <th>Tanggal Dibuat</th>
-      <th>Nama Tugas</th>
-      <th>Deskripsi</th>
-    </tr>
-    {% comment %} Add the data below this line {% endcomment %}
-    {% for Task in data %}
-      <tr>
-        <th>{{Task.date_created}}</th>
-        <th>{{Task.title}}</th>
-        <th>{{Task.description}}</th>
-      </tr>
-    {% endfor %}
-  </table> -->
 
-<!-- <button class="btn btn-outline-warning position-relative"><a href="{% url 'todolist:add_task' %}">Tambah Tugas Baru</a></button>
-<button class="btn btn-outline-danger"><a href="{% url 'todolist:logout_user' %}">Logout</a></button> -->
+<div class="modal fade" id="quickAddModal" tabindex="-1" aria-labelledby="qaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="qaModalLabel">Add New Task</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" id="addTaskForm" onsubmit="return false;">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nama Tugas: </label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="Task">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Deskripsi: </label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"
+              placeholder="Description"></textarea>
+          </div>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-dark" type="submit" id="taskSubmit">Create Task</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" ß
+  crossorigin="anonymous"></script>
+
+<script>
+  async function getTodolist() {
+    return fetch("/todolist/json").then((res) => res.json())
+  }
+
+  async function refreshTodolist() {
+    document.getElementById("rowcolTask").innerHTML = ""
+    const todolist = await getTodolist()
+    let htmlString = ``
+    //   <th>Nama Barang</th>
+    //   <th>Harga Barang</th>
+    //   <th>Deskripsi</th>
+    // </tr>`
+    todolist.forEach((item) => {
+      htmlString += `\n<div class="col" id="col_card_${item.pk}">
+            <div class="card shadow p-3 mb-5 bg-body rounded" style="width: 18rem; height: 13rem;">
+              <div class="card-body">
+                <h5 class="card-title">${item.fields.title}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${item.fields.date_created}</h6>
+                <p class="card-text text-truncate">${item.fields.description}</p>
+                <form method="post" id="delete_task_${item.pk}">
+                  {% csrf_token %}
+                  <input class="btn btn-light" type="button" id="deleteTaskSubmit" onclick="deleteTodolist(${item.pk})" value="🗑"></input>
+                </form>
+              </div>
+            </div>
+          </div>`
+    })
+    document.getElementById("rowcolTask").innerHTML = htmlString
+  }
+
+  function addTodolist() {
+    fetch("/todolist/add/", {
+      method: "POST",
+      body: new FormData(document.querySelector('#addTaskForm'))
+    }).then(refreshTodolist)
+    $("#quickAddModal").modal("hide");
+    $("#quickAddModal").on('hidden.bs.modal', function () {
+      $("#quickAddModal form")[0].reset();
+    });
+    return false
+  }
+
+  function deleteTodolist(pk) {
+    $.ajax({
+          type: "POST",
+          url: `/todolist/delete/${pk}`,
+          data: { csrfmiddlewaretoken: "{{ csrf_token }}" },
+          success: function (data) {
+              $('#col_card_'+pk).remove();
+          }
+      });
+  }
+
+  document.getElementById("taskSubmit").onclick = addTodolist
+  refreshTodolist()
+  // $.ajax({
+  //   url: "/todolist/json",
+  //   type: 'get',
+  //   dataType: 'json',
+  //   error: function (data) {
+  //     console.log('Error');
+  //   },
+  //   success: function (data) {
+  //     // console.log(data);
+  //     for (var i = 0; i < data.length; i++) {
+  //       var cards = $('<div class="col">' +
+  //         '<div class="card shadow p-3 mb-5 bg-body rounded" style="width: 18rem; height: 13rem;">' +
+  //         '<div class="card-body">' +
+  //         '<h5 class="card-title">' + data[i].fields.title + '</h5>' +
+  //         '<h6 class="card-subtitle mb-2 text-muted">' + data[i].fields.date_created + '</h6>' +
+  //         '<p class="card-text tex-truncate">' + data[i].fields.description + '</p>' +
+  //         '</div>' +
+  //         '</div>' +
+  //         '</div>');
+  //       $(rowcolTask).append(cards);
+  //     }
+  //   }
+  // });
+
+  // $("form#addTaskForm").submit(function (e) {
+  //   e.preventDefault();
+  //   fetch("/todolist/add",{
+  //     method: "POST",
+  //     body: new FormData(document.querySelector('#addTaskForm'))
+  //   }).then(function(data){
+  //     for (var i = 0; i < data.length; i++) {
+  //       var cards = $('<div class="col">' +
+  //         '<div class="card shadow p-3 mb-5 bg-body rounded" style="width: 18rem; height: 13rem;">' +
+  //         '<div class="card-body">' +
+  //         '<h5 class="card-title">' + data[i].fields.title + '</h5>' +
+  //         '<h6 class="card-subtitle mb-2 text-muted">' + data[i].fields.date_created + '</h6>' +
+  //         '<p class="card-text tex-truncate">' + data[i].fields.description + '</p>' +
+  //         '</div>' +
+  //         '</div>' +
+  //         '</div>');
+  //       $(rowcolTask).append(cards);
+  //     }
+  //   })
+  // })
+</script>
 
 {% endblock content %}

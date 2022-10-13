@@ -1,14 +1,17 @@
 from ast import main
 from binascii import rledecode_hqx
 from http import cookies
+from turtle import title
 from urllib import request
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.core import serializers
 import datetime
 from todolist.models import Task
 from .forms import CreateTaskForm
@@ -61,6 +64,11 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+@login_required(login_url='/todolist/login/')
+def show_json(request):
+    data = Task.objects.filter(user = request.user)
+    return HttpResponse(serializers.serialize("json", data))
+
 # def add_task(request):
 #     if(request.POST):
 #         newTask = Task(user = request.user, title = request.POST.get('title'), description = request.POST.get('description'), date_created = datetime.date.today())
@@ -98,19 +106,26 @@ def add_task(request):
             form = CreateTaskForm
             if 'submitted' in request.GET:
                 submitted = True
-        # # response.set_cookie('date_created', str(datetime.datetime.now()))
-        # new_task = Task()
-        # new_task.date = str(datetime.datetime.now())
-        # new_task.title = form_data.get('title')
-        # new_task.description = form_data.get('description')
-        # # task = Task(date = str(datetime.datetime.now()), )
-        # return redirect('todolist:show_todolist')
-    # else:
-    #     form = CreateTaskForm()
     return render(request, 'create-task.html')
 
-# def delete_task(request, task_id):
-#     task = Task.objects.get(pk = task_id)
-#     task.delete()
-#     return redirect('show_todolist')
+def quick_add_task(request):
+    if(request.POST):
+        task_title = request.POST.get('title')
+        task_desc = request.POST.get('description')
+        task_date = datetime.datetime.now()
+        task_user = request.user
+
+        new_task = Task(title = task_title, description = task_desc, date_created = task_date, user = task_user)
+        new_task.save()
+        return HttpResponse(b"CREATED", status = 201)
+    return HttpResponseNotFound()
+
+def delete_task(request, id):
+    context = {}
+    task = get_object_or_404(Task,pk = id)
+    
+    if(request.POST):
+        task.delete()
+        return HttpResponse(b"DELETED", status = 201)
+    return HttpResponseNotFound()
 
